@@ -26,7 +26,10 @@ To run this web app locally, follow these steps:
    cd youtube-url-app
    ```
 
-2. **Open `index.html` in your web browser**:
+2. **Running trained model**:
+    Run `python server.py` on command prompt at */xgboost directory
+
+3. **Open `index.html` in your web browser**:
    You can simply double-click the `index.html` file or open it using your preferred web browser.
 
 ## Usage

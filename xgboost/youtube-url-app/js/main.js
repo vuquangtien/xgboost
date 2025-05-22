@@ -54,12 +54,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const result = await response.json();
-            console.log('Analysis Result:', result);
-            console.log('Raw probabilities:', result.prediction.probabilities);
+            console.log('=== FULL SERVER RESPONSE ===');
+            console.log(JSON.stringify(result, null, 2));
+            console.log('=== PREDICTION DATA ===');
+            console.log('Prediction class:', result.prediction.class);
+            console.log('Prediction label:', result.prediction.label);
             
-            // Log each probability in detail for debugging
+            // Log detailed probability information
+            console.log('=== PROBABILITY DETAILS ===');
             result.prediction.probabilities.forEach(prob => {
-                console.log(`${prob.label}: ${prob.value}%`);
+                console.log(`${prob.label}: ${prob.value}% (${prob.value/100})`);
             });
             
             // Process and display the results

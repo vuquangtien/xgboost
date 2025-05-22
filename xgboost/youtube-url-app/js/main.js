@@ -55,6 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const result = await response.json();
             console.log('Analysis Result:', result);
+            console.log('Raw probabilities:', result.prediction.probabilities);
+            
+            // Log each probability in detail for debugging
+            result.prediction.probabilities.forEach(prob => {
+                console.log(`${prob.label}: ${prob.value}%`);
+            });
             
             // Process and display the results
             displayResults(result);
@@ -116,17 +122,23 @@ document.addEventListener('DOMContentLoaded', function() {
         recommendation.textContent = `We ${prediction.recommendation} this video.`;
         
         // Display probability bars
+        console.log('Setting up probability bars:');
         prediction.probabilities.forEach(prob => {
             const index = prob.label.toLowerCase().includes('not popular') ? 0 : 
                          prob.label.toLowerCase().includes('controversy') ? 1 :
                          prob.label.toLowerCase().includes('decent') ? 2 : 3;
             
+            console.log(`Mapping label "${prob.label}" to index ${index} with value ${prob.value}%`);
+            
             const bar = document.getElementById(`prob-${index}`);
             const value = document.getElementById(`prob-${index}-value`);
             
             if (bar && value) {
+                console.log(`Setting bar #prob-${index} width to ${prob.value}%`);
                 bar.style.width = `${prob.value}%`;
                 value.textContent = `${prob.value}%`;
+            } else {
+                console.error(`Could not find elements for prob-${index}`);
             }
         });
         
